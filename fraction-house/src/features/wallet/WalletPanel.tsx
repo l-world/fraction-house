@@ -14,24 +14,28 @@ export const WalletPanel = () => {
     });
 
     return (
-        <div>
-            <div>
-                <h2>Wallet</h2>
-                <ConnectButton></ConnectButton>
+        <div className="rounded-xl border p-4 space-y-3">
+            <div className="flex items-center justify-between">
+                <h2 className="text-lg font-semibold">Wallet</h2>
+                <ConnectButton />
             </div>
 
             {!isConnected ? (
-                <p>Please connect your walller.</p>
+                <p className="text-sm text-gray-500">
+                    Please connect your walller.
+                </p>
             ) : (
-                <div>
+                <div className="space-y-1 text-sm">
                     <p>
-                        <span>Address:</span> <span>{address}</span>
+                        <span className="text-gray-500">Address:</span>{" "}
+                        <span>{address}</span>
                     </p>
                     <p>
-                        <span>Chain Id</span> <span>{chainId}</span>
+                        <span className="text-gray-500">Chain Id</span>{" "}
+                        <span>{chainId}</span>
                     </p>
                     <p>
-                        <span>Balance:</span>{" "}
+                        <span className="text-gray-500">Balance:</span>{" "}
                         <span>
                             {balance
                                 ? `${formatUnits(balance.value, balance.decimals)} ${balance.symbol}`
