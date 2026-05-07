@@ -80,7 +80,7 @@ type AppProviderProps = {
 
     children 表示这个 Provider 包裹的子内容
 */
-export default function AppProviders({ children }: AppProviderProps) {
+export function AppProviders({ children }: AppProviderProps) {
     return (
         <WagmiProvider config={wagmiConfig}>
             <QueryClientProvider client={queryClient}>
