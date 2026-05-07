@@ -22,7 +22,7 @@ export const WalletPanel = () => {
 
             {!isConnected ? (
                 <p className="text-sm text-gray-500">
-                    Please connect your walller.
+                    Please connect your walllet.
                 </p>
             ) : (
                 <div className="space-y-1 text-sm">
