@@ -15,19 +15,17 @@ export default function MarketPlace() {
     const filteredProperties = useMemo(() => {
         return mockProperties.filter((property) => {
             const matchKeyword =
-                property.title
-                    .toLowerCase()
-                    .includes(keyword.toLocaleLowerCase()) ||
+                property.title.toLowerCase().includes(keyword.toLowerCase()) ||
                 property.location.toLowerCase().includes(keyword.toLowerCase());
-            const matchStatus =
-                !maxPrice || Number(property.priceEth) <= Number(maxPrice);
+
+            const matchStatus = status === "all" || property.status === status;
 
             const matchPrice =
                 !maxPrice || Number(property.priceEth) <= Number(maxPrice);
 
             return matchKeyword && matchStatus && matchPrice;
         });
-    }, [keyword, maxPrice]);
+    }, [keyword, status, maxPrice]);
 
     return (
         <main className="min-h-screen bg-gray-50 px-6 py-8">
