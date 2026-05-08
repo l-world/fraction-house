@@ -1,17 +1,33 @@
 import { WalletPanel } from "./features/wallet/WalletPanel";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import MarketPlace from "./pages/MarketPlace";
+import PropertyDetail from "./pages/PropertyDetail";
 
 function App() {
     return (
-        <main className="min-h-screen p-8">
-            <div className="mx-auto max-w-4xl space-y-6">
-                <h1 className="text-3xl font-bold">FractionHouse</h1>
-                <p className="text-gray-500">
-                    A Web3 real estate marketplace frontend.
-                </p>
-
-                <WalletPanel />
+        <BrowserRouter>
+            <div>
+                <div>
+                    <h1></h1>
+                    <div>
+                        <WalletPanel />
+                    </div>
+                </div>
             </div>
-        </main>
+
+            <Routes>
+                <Route
+                    path="/"
+                    element={<Navigate to="/marketplace" replace />}
+                />
+
+                <Route path="/marketplace" element={<MarketPlace />} />
+                <Route
+                    path="/properties/:tokenId"
+                    element={<PropertyDetail />}
+                />
+            </Routes>
+        </BrowserRouter>
     );
 }
 
