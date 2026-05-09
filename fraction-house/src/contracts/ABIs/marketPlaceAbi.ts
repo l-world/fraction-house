@@ -27,4 +27,11 @@ export const marketplaceAbi = [
             },
         ],
     },
+    {
+        type: "function",
+        name: "buyListing",
+        stateMutability: "payable",
+        inputs: [{ name: "listingIndex", type: "uint256" }],
+        outputs: [],
+    },
 ] as const;
