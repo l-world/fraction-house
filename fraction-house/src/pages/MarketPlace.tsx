@@ -4,6 +4,7 @@ import {
     mockProperties,
     type PropertyStatus,
 } from "../features/property/mockProperties";
+import { useMarketplaceListings } from "../features/marketplace/hooks/useMarketplaceListings";
 
 type StatusFilter = "all" | PropertyStatus;
 
@@ -12,8 +13,16 @@ export default function MarketPlace() {
     const [status, setStatus] = useState<StatusFilter>("all");
     const [maxPrice, setMaxPrice] = useState("");
 
+    const { listings, isLoading, error, mode } = useMarketplaceListings();
+
+    const listingTokenIds = useMemo(() => {
+        return new Set(listings.map((listing) => listing.tokenId));
+    }, [listings]);
+
     const filteredProperties = useMemo(() => {
         return mockProperties.filter((property) => {
+            const existsOnMarketplace = listingTokenIds.has(property.tokenId);
+
             const matchKeyword =
                 property.title.toLowerCase().includes(keyword.toLowerCase()) ||
                 property.location.toLowerCase().includes(keyword.toLowerCase());
@@ -23,9 +32,11 @@ export default function MarketPlace() {
             const matchPrice =
                 !maxPrice || Number(property.priceEth) <= Number(maxPrice);
 
-            return matchKeyword && matchStatus && matchPrice;
+            return (
+                existsOnMarketplace && matchKeyword && matchStatus && matchPrice
+            );
         });
-    }, [keyword, status, maxPrice]);
+    }, [keyword, status, maxPrice, listingTokenIds]);
 
     return (
         <main className="min-h-screen bg-gray-50 px-6 py-8">
@@ -40,6 +51,10 @@ export default function MarketPlace() {
                     <p className="mt-2 max-w-2xl text-gray-500">
                         Browse real estate NFTs, fractional ownership
                         opportunities, and auction listings.
+                    </p>
+
+                    <p className="mt-3 text-xs text-gray-400">
+                        Data mode: {mode}
                     </p>
                 </section>
 
@@ -71,7 +86,17 @@ export default function MarketPlace() {
                     />
                 </section>
 
-                {filteredProperties.length === 0 ? (
+                {error && (
+                    <div className="rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-600">
+                        Failed to load marketplace data.
+                    </div>
+                )}
+
+                {isLoading ? (
+                    <div className="rounded-2xl border bg-white p-10 text-center text-gray-500">
+                        Loading marketplace listings...
+                    </div>
+                ) : filteredProperties.length === 0 ? (
                     <div className="rounded-2xl border bg-white p-10 text-center text-gray-500">
                         No properties found.
                     </div>
