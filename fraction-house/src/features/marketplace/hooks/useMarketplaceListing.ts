@@ -9,7 +9,7 @@ import { marketplaceAbi } from "../../../contracts/ABIs/marketPlaceAbi";
 import { mapListingType, type MarketplaceListing } from "../types";
 
 type useMarketplaceListingParams = {
-    marketplaceAddress: `0x${string}`;
+    marketplaceAddress?: `0x${string}`;
     listingIndex: number;
     enabled?: boolean;
 };
