@@ -8,7 +8,7 @@ type BuyListingParams = {
     priceWei: bigint;
 };
 
-export function useBuylisting() {
+export function useBuyListing() {
     const chainId = useChainId();
     const addresses = getContractAddresses(chainId);
     const marketplaceAddress = addresses?.marketplace as
