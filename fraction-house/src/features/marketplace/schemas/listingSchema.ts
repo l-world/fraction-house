@@ -24,4 +24,5 @@ export const listingSchema = z.object({
             listingType: "sale" | "auction" | "rent";
         };
 */
-export type ListingFormValues = z.infer<typeof listingSchema>;
+
+export type ListingFormValues = z.output<typeof listingSchema>;

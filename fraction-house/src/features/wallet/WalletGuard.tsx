@@ -5,7 +5,7 @@ type WalletGuardProps = {
     children: React.ReactNode;
 };
 
-export default function WalletGuard({ children }: WalletGuardProps) {
+export function WalletGuard({ children }: WalletGuardProps) {
     const { isConnected } = useAccount();
 
     if (!isConnected) {
