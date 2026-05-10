@@ -2,7 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { mockProperties } from "../features/property/mockProperties";
 import { formatAddress, formatEth } from "../shared/utils/format";
 import { useMarketplaceListings } from "../features/marketplace/hooks/useMarketplaceListings";
-import { useBuyListing } from "../features/marketplace/hooks/useBuylisting";
+import { useBuyListing } from "../features/marketplace/hooks/useBuyListing";
 
 export default function PropertyDetailPage() {
     const { tokenId } = useParams();
