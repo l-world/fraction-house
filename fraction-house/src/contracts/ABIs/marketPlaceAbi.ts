@@ -34,4 +34,17 @@ export const marketplaceAbi = [
         inputs: [{ name: "listingIndex", type: "uint256" }],
         outputs: [],
     },
+    {
+        type: "function",
+        name: "list",
+        stateMutability: "nonpayable",
+        inputs: [
+            { name: "tokenId", type: "uint256" },
+            { name: "listingType", type: "uint8" },
+            { name: "priceWei", type: "uint256" },
+            { name: "rentDurationSeconds", type: "uint256" },
+            { name: "auctionEndTime", type: "uint256" },
+        ],
+        outputs: [],
+    },
 ] as const;
