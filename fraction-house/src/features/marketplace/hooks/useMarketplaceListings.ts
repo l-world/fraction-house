@@ -7,7 +7,7 @@ import { mockProperties } from "../../property/mockProperties";
 import type { MarketplaceListing } from "../types";
 import { parseEther } from "viem";
 
-const USE_MOCK = true;
+const USE_MOCK = import.meta.env.VITE_ENABLE_MOCK !== "false";
 
 function getMockListings(): MarketplaceListing[] {
     return mockProperties.map((property, index) => ({
