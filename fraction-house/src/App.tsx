@@ -33,6 +33,9 @@ export default function App() {
                         >
                             My Assets
                         </Link>
+                        <Link to="/" className="text-gray-600 hover:text-black">
+                            About
+                        </Link>
                     </nav>
 
                     <div className="w-fit">
