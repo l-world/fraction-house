@@ -1,10 +1,15 @@
-name: CI
+name: CI/CD
 
 on:
     push:
+        branches:
+            - main
+    pull_request:
+        branches:
+            - main
 
 jobs:
-    build:
+    check:
         runs-on: ubuntu-latest
 
         defaults:
@@ -27,3 +32,37 @@ jobs:
             - run: pnpm install
 
             - run: pnpm run build
+
+    deploy:
+        needs: check
+        runs-on: ubuntu-latest
+
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+        defaults:
+            run:
+                working-directory: ./fraction-house
+
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: pnpm/action-setup@v4
+              with:
+                  version: 9
+
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+
+            - run: pnpm install
+
+            - run: pnpm add -g vercel
+
+            - run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+
+            - run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+            - run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+              env:
+                  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+                  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
